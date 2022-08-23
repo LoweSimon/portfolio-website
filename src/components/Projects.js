@@ -12,10 +12,7 @@ export default function Projects()  {
                         Apps I have built
                     </h1>
                     <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-                        {/* TO BE UPDATED WITH OWN WORDS */}
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo
-                        facilis repellat ab cupiditate alias vero aliquid obcaecati quisquam
-                        fuga dolore.
+                        Please see my portfolio below. You can see all my work by going to my github <a href="https://github.com/LoweSimon">here</a>
                     </p>
                 </div>
                 <div className="flex flex-wrap -m-4">
