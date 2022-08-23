@@ -1,4 +1,5 @@
 import React from "react";
+import img from "../images/webDev.jpg"
 
 export default function About() {
     return  (
@@ -11,9 +12,7 @@ export default function About() {
                     </h1>
                     <p className="mb-8 leading-relaxed">
                     {/* TO BE UPDATED WITH PERSONAL QUOTE */}
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui
-                    laborum quasi, incidunt dolore iste nostrum cupiditate voluptas?
-                    Laborum, voluptas natus?
+                    I am a web developer with a keen eye for detail. I enjoy building websites for all scenarios, and take pride in every piece of work I do.
                     </p>
                     <div className="flex justify-center">
                         <a href="#contact" className="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">
@@ -26,7 +25,7 @@ export default function About() {
                 </div>
                 <div className="lg:max-lg lg:w-full md:w-1/2 w-5/6">
                 {/* IMAGE TO BE UPDATED WITH A PICTURE OF MYSELF */}
-                    <img className="object-cover object-center rounded" alt="hero" src="src\images\webDev.jpg" />
+                    <img className="object-cover object-center rounded" alt="hero" src={img} />
                 </div>
             </div>
         </section>
