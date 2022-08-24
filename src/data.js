@@ -35,7 +35,10 @@ export const skills = [
         title: "CSS",
     },
     {
-        title: "React"
+        title: "React",
+    },
+    {
+        title: "WordPress"
     }
 
 ];

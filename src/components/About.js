@@ -1,5 +1,5 @@
 import React from "react";
-import img from "../images/webDev.jpg"
+import "../index.css"
 
 export default function About() {
     return  (
@@ -25,7 +25,7 @@ export default function About() {
                 </div>
                 <div className="lg:max-lg lg:w-full md:w-1/2 w-5/6">
                 {/* IMAGE TO BE UPDATED WITH A PICTURE OF MYSELF */}
-                    <img className="object-cover object-center rounded" alt="hero" src={img} />
+                    <img className="object-cover object-center rounded heroImage" alt="hero" src="https://c.pxhere.com/photos/3b/90/code_coding_web_development_web_developer_web_development_technology_programming_code-1066093.jpg!d" />
                 </div>
             </div>
         </section>
