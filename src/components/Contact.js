@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-export default function Contact() {
-
+function Contact() {
+  
     // const [name, setName] = React.useState("");
     // const [email, setEmail] = React.useState("");
     // const [message, setMessage] = React.useState("");
@@ -35,13 +35,13 @@ export default function Contact() {
         email: email.value,
         message: message.value,
       };
-      let response = /*await fetch("https://localhost:5000/contact",*/  {
+      let response = await fetch("https://localhost:5000/contact", {
         method: "POST",
         headers:  {
           "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify(details),
-      };
+      });
       setStatus("Submit");
       let result = await response.json();
       alert(result.status);
@@ -77,7 +77,7 @@ export default function Contact() {
                   EMAIL
                 </h2>
                 <a href="mailto: simon.lowe90@hotmail.co.uk" className="text-indigo-400 leading-relaxed">
-                  simon.lowe90@hotmail.co.uk
+                  lowe.simon90@gmail.com
                 </a>
                 <h2 className="title-font font-semibold text-white tracking-widest text-xs mt-4">
                   PHONE
@@ -147,3 +147,5 @@ export default function Contact() {
       </section>
     );
   }
+
+export default Contact;
