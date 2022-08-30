@@ -1,35 +1,35 @@
 import React from "react";
-import axios from "axios";
+import emailjs from 'emailjs-com';
+import { Form, Input, TextArea, Button } from 'semantic-ui-react';
+import '../index.css'
+import Swal from 'sweetalert2';
 
-class Contact extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      email: '',
-      message: ''
-    }
-  }
-  handleSubmit(e){
+const SERVICE_ID = "service_ipfon8q";
+const TEMPLATE_ID = "template_g3to4r7";
+const USER_ID = "vs3WXvn1h3bvzTjlA";
+
+const Contact = () => {
+  const handleOnSubmit = (e) => {
     e.preventDefault();
-    axios({
-      method: "POST",
-      url:"http://localhost:3002/send",
-      data:  this.state
-    }).then((response)=>{
-      if (response.data.status === 'success') {
-        alert("Message Sent.");
-        this.resetForm()
-      } else if (response.data.status === 'fail') {
-        alert("Message failed to send.")
-      }
-    })
-  }
-  resetForm(){
-    this.setState({name: '', email: '', message: ''})
-  }
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, USER_ID)
+      .then((result) => {
+        console.log(result.text);
+        Swal.fire({
+          icon: "success",
+          title: "Message Sent Successfully"
+        })
+      }, (error) => {
+        console.log(error.text);
+        Swal.fire({
+          icon: "error",
+          title: "Ooops, something went wrong",
+          text: error.text,
+        })
+      });
+    e.target.reset()
+  };
+  
 
-  render()  {
     return (
       <section id="contact" className="relative">
         <div className="container px-5 py-10 mx-auto flex sm:flex-nowrap flex-wrap">
@@ -69,83 +69,41 @@ class Contact extends React.Component {
               </div>
             </div>
           </div>
-          <form
-            id="contact-form"
-            onSubmit={this.handleSubmit.bind(this)}
-            method="POST"
-            className="lg:w-1/3 md:w-1/2 flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-            <h2 className="text-white sm:text-4xl text-3xl mb-1 font-medium title-font">
-              Hire Me
-            </h2>
-            <p className="leading-relaxed mb-5">
-              Like what you see? Why not work with me to create the website just for you.
-            </p>
-            <div className="relative mb-4 form-group">
-              <label htmlFor="name" className="leading-7 text-sm text-gray-400">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={this.state.name}
-                onChange={this.onNameChange.bind(this)}
-                className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out form-control"
-                required
-              />
-            </div>
-            <div className="relative mb-4 form-group">
-              <label htmlFor="email" className="leading-7 text-sm text-gray-400">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                aria-describedby="emailHelp"
-                value={this.state.email}
-                onChange={this.onEmailChange.bind(this)}
-                className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out form-control"
-                required
-              />
-            </div>
-            <div className="relative mb-4 form-group">
-              <label
-                htmlFor="message"
-                className="leading-7 text-sm text-gray-400">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={this.state.message}
-                onChange={this.onMessageChange.bind(this)}
-                className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 h-32 text-base outline-none text-gray-100 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out form-control"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-              Submit
-            </button>
-          </form>
+          <Form onSubmit={handleOnSubmit}>
+            <Form.Field
+              id="form-input-control-email"
+              control={Input}
+              label="Email"
+              name="user_email"
+              placeholder="Email…"
+              required
+              icon="mail"
+              iconPosition="left"
+            />
+            <Form.Field
+              id="form-input-control-last-name"
+              control={Input}
+              label="Name"
+              name="user_name"
+              placeholder="Name…"
+              required
+              icon="user circle"
+              iconPosition="left"
+            />
+            <Form.Field
+              id="form-textarea-control-opinion"
+              control={TextArea}
+              label="Message"
+              name="user_message"
+              placeholder="Message…"
+              required
+            />
+            <Button type="submit" color="green">Submit</Button>
+          </Form>
+          
         </div>
       </section>
     );
-  }
-
-  onNameChange(event) {
-    this.setState({name: event.target.value})
-  }
-
-  onEmailChange(event)  {
-    this.setState({email: event.target.value})
-  }
-
-  onMessageChange(event)  {
-    this.setState({message: event.target.value})
-  }
 }
 
 export default Contact;
