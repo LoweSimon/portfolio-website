@@ -1,35 +1,22 @@
 import React from "react";
-import axios from "axios";
+import emailjs from 'emailjs-com';
 
-class Contact extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      email: '',
-      message: ''
-    }
-  }
-  handleSubmit(e){
-    e.preventDefault();
-    axios({
-      method: "POST",
-      url:"http://localhost:3002/send",
-      data:  this.state
-    }).then((response)=>{
-      if (response.data.status === 'success') {
-        alert("Message Sent.");
-        this.resetForm()
-      } else if (response.data.status === 'fail') {
-        alert("Message failed to send.")
-      }
-    })
-  }
-  resetForm(){
-    this.setState({name: '', email: '', message: ''})
-  }
+export default function ContactMe() {
 
-  render()  {
+    function sendEmail(e)   {
+      e.preventDefault();
+
+      emailjs.sendForm('service_ipfon8q', 'template_g3to4r7', e.target, 'vs3WXvn1h3bvzTjlA')
+        .then((result) => {
+            console.log(result.text);
+            alert("Thank you for your enquiry, I will be in touch in the next 24hours")
+        }, (error) => {
+            console.log(error.text);
+            alert("Message not sent")
+        });
+        e.target.reset();
+    };
+
     return (
       <section id="contact" className="relative">
         <div className="container px-5 py-10 mx-auto flex sm:flex-nowrap flex-wrap">
@@ -71,8 +58,7 @@ class Contact extends React.Component {
           </div>
           <form
             id="contact-form"
-            onSubmit={this.handleSubmit.bind(this)}
-            method="POST"
+            onSubmit={sendEmail}
             className="lg:w-1/3 md:w-1/2 flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
             <h2 className="text-white sm:text-4xl text-3xl mb-1 font-medium title-font">
               Hire Me
@@ -87,9 +73,7 @@ class Contact extends React.Component {
               <input
                 type="text"
                 id="name"
-                name="name"
-                value={this.state.name}
-                onChange={this.onNameChange.bind(this)}
+                name="user_name"
                 className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out form-control"
                 required
               />
@@ -101,10 +85,7 @@ class Contact extends React.Component {
               <input
                 type="email"
                 id="email"
-                name="email"
-                aria-describedby="emailHelp"
-                value={this.state.email}
-                onChange={this.onEmailChange.bind(this)}
+                name="user_email"
                 className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out form-control"
                 required
               />
@@ -118,8 +99,6 @@ class Contact extends React.Component {
               <textarea
                 id="message"
                 name="message"
-                value={this.state.message}
-                onChange={this.onMessageChange.bind(this)}
                 className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 h-32 text-base outline-none text-gray-100 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out form-control"
                 required
               />
@@ -134,18 +113,3 @@ class Contact extends React.Component {
       </section>
     );
   }
-
-  onNameChange(event) {
-    this.setState({name: event.target.value})
-  }
-
-  onEmailChange(event)  {
-    this.setState({email: event.target.value})
-  }
-
-  onMessageChange(event)  {
-    this.setState({message: event.target.value})
-  }
-}
-
-export default Contact;
