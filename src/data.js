@@ -6,7 +6,7 @@ export const projects = [
         subtitle: "WIP",
         description: "React app to convert DnD Currency",
         image: image,
-        link: "https://github.com/LoweSimon/DnDCurrencyConverter",
+        link: "https://github.com/LoweSimon/DnDConvertCurrency",
     },
 ];
 
